@@ -1,0 +1,38 @@
+import turtle
+
+
+class Chassis(turtle.Turtle):
+    def __init__(self):
+        super().__init__()
+        self.shape("square")
+        self.color("white")
+        self.penup()
+
+    def jump(self):
+        origin_y = self.ycor()
+        changing_y = self.ycor()
+        for i in range(10):
+            changing_y += 10
+            self.sety(changing_y)
+        while origin_y < changing_y:
+            changing_y -= 5
+            self.sety(changing_y)
+
+
+class Body(Chassis):
+    def __init__(self, x, y):
+        super().__init__()
+        self.shapesize(stretch_wid=5, stretch_len=1.5)
+        self.setx(x)
+        self.sety(y)
+
+
+class Limbs(Chassis):
+    def __init__(self, x, y):
+        super().__init__()
+        self.shapesize(stretch_wid=0.7, stretch_len=7)
+        self.speed(1)
+        self.setx(x)
+        self.sety(y)
+
+
