@@ -1,0 +1,160 @@
+import turtle
+import Chassis
+
+win = turtle.Screen()
+win.title("Mannequinn")
+win.bgcolor("skyblue")
+win.setup(width=500, height=500)
+win.tracer(0)
+
+
+# WARNING : BOB IS MIRRORED TO YOU // HIS LEFT IS WRITTEN AS RIGHT IN CODINGS
+# Creating BOB
+bob_head = Chassis.Chassis()
+bob_head.shape("circle")
+bob_head.sety(90)
+bob_head.shapesize(stretch_wid=2.1, stretch_len=2.1)
+
+bob_body = Chassis.Body(0, 30)
+
+bob_arm_r_u = Chassis.Limbs(45, 70)
+
+bob_arm_l_u = Chassis.Limbs(-45, 70)
+bob_arm_l_u.right(180)
+
+bob_leg_r_u = Chassis.Limbs(20.2, -49.54)
+bob_leg_r_u.right(80)
+
+bob_leg_l_u = Chassis.Limbs(-20.2, -49.54)
+bob_leg_l_u.left(260)
+
+# Bob Joint & lower part of bodies
+joint_leg_r = Chassis.joint_xy(bob_leg_r_u, 60)
+
+bob_leg_r_low = Chassis.Limbs(joint_leg_r[0], joint_leg_r[1])
+bob_leg_r_low.right(80)
+
+joint_leg_l = Chassis.joint_xy(bob_leg_l_u, 60)
+bob_leg_l_low = Chassis.Limbs(joint_leg_l[0], joint_leg_l[1])
+bob_leg_l_low.left(260)
+
+joint_arm_r = Chassis.joint_xy(bob_arm_r_u, 60)
+bob_arm_r_low = Chassis.Limbs(joint_arm_r[0], joint_arm_r[1])
+
+joint_arm_l = Chassis.joint_xy(bob_arm_l_u, 60)
+bob_arm_l_low = Chassis.Limbs(joint_arm_l[0], joint_arm_l[1])
+bob_arm_l_low.left(180)
+
+
+# Upper Limb Functions
+def right_arm_up():
+    bob_arm_r_u.rotate_limb_left(15, 70)
+    right_low_arm_up()
+
+
+def right_arm_down():
+    bob_arm_r_u.rotate_limb_right(15, 70)
+    right_low_arm_down()
+
+
+def left_arm_up():
+    bob_arm_l_u.rotate_limb_right(-15, 70)
+    left_low_arm_up()
+
+
+def left_arm_down():
+    bob_arm_l_u.rotate_limb_left(-15, 70)
+    left_low_arm_down()
+
+
+def right_leg_up():
+    bob_leg_r_u.rotate_limb_left(15, -20)
+    right_low_leg_up()
+
+
+def right_leg_down():
+    bob_leg_r_u.rotate_limb_right(15, -20)
+    right_low_leg_down()
+
+
+def left_leg_up():
+    bob_leg_l_u.rotate_limb_right(-15, -20)
+    left_low_leg_up()
+
+
+def left_leg_down():
+    bob_leg_l_u.rotate_limb_left(-15, -20)
+    left_low_leg_down()
+
+
+# Lower Limb Functions
+# Right Low Arm
+def right_low_arm_up():
+    bob_arm_r_low.rotate_limb_left(Chassis.joint_xy(bob_arm_r_u, 30)[0],
+                                    Chassis.joint_xy(bob_arm_r_u, 30)[1])
+
+def right_low_arm_down():
+    bob_arm_r_low.rotate_limb_right(Chassis.joint_xy(bob_arm_r_u, 30)[0],
+                                    Chassis.joint_xy(bob_arm_r_u, 30)[1])
+
+
+# Left Low Arm
+def left_low_arm_up():
+    bob_arm_l_low.rotate_limb_right(Chassis.joint_xy(bob_arm_l_u, 30)[0],
+                                    Chassis.joint_xy(bob_arm_l_u, 30)[1])
+
+def left_low_arm_down():
+    bob_arm_l_low.rotate_limb_left(Chassis.joint_xy(bob_arm_l_u, 30)[0],
+                                    Chassis.joint_xy(bob_arm_l_u, 30)[1])
+
+
+# Right Low Leg
+def right_low_leg_up():
+    bob_leg_r_low.rotate_limb_left(Chassis.joint_xy(bob_leg_r_u, 30)[0],
+                                    Chassis.joint_xy(bob_leg_r_u, 30)[1])
+
+def right_low_leg_down():
+    bob_leg_r_low.rotate_limb_right(Chassis.joint_xy(bob_leg_r_u, 30)[0],
+                                    Chassis.joint_xy(bob_leg_r_u, 30)[1])
+
+
+# Left Low Leg
+def left_low_leg_up():
+    bob_leg_l_low.rotate_limb_right(Chassis.joint_xy(bob_leg_l_u, 30)[0],
+                                    Chassis.joint_xy(bob_leg_l_u, 30)[1])
+
+def left_low_leg_down():
+    bob_leg_l_low.rotate_limb_left(Chassis.joint_xy(bob_leg_l_u, 30)[0],
+                                    Chassis.joint_xy(bob_leg_l_u, 30)[1])
+
+
+# start tracing movement
+win.tracer(1)
+win.listen()
+
+# Right Arm
+win.onkeypress(right_arm_up, 'e')
+win.onkeypress(right_arm_down, 'd')
+win.onkeypress(right_low_arm_up, 'r')
+win.onkeypress(right_low_arm_down, 'f')
+
+# Left Arm
+win.onkeypress(left_arm_up, 'q')
+win.onkeypress(left_arm_down, 'a')
+win.onkeypress(left_low_arm_up, 'w')
+win.onkeypress(left_low_arm_down, 's')
+
+# Right Leg
+win.onkeypress(right_leg_up, 'i')
+win.onkeypress(right_leg_down, 'k')
+win.onkeypress(right_low_leg_up, 'o')
+win.onkeypress(right_low_leg_down, 'l')
+
+# Left Leg
+win.onkeypress(left_leg_up, 'y')
+win.onkeypress(left_leg_down, 'h')
+win.onkeypress(left_low_leg_up, 'u')
+win.onkeypress(left_low_leg_down, 'j')
+
+while True:
+    win.update()
