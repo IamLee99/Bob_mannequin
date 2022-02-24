@@ -1,5 +1,5 @@
 # Bob_mannequin
-
+![](https://github.com/IamLee99/Bob_mannequin/blob/main/BOBGIF.gif)
 Controls =
 
   Right Arm 
