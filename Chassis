@@ -38,18 +38,16 @@ class Limbs(Chassis):
         self.setx(x)
         self.sety(y)
 
-# rotate_limb_left/right is probably the most crucial function in this project as this will make limbs
+# rotate_limb is probably the most crucial function in this project as this will make limbs
 # rotate and slightly move its coordinates to keep in contact with point of connection (aka Joints).
 # change of coordinate is calculated by coordinates of joint (given),
 # distance from joint to center of limb (a coordinate that setx/y follows), and a coordinate of
 # center of limb given by trigonometry based on distance and headings.
-    def rotate_limb_left(self, x, y):
-        self.left(9)
-        self.setx(x + 30 * (math.cos(math.radians(self.heading()))))
-        self.sety(y + 30 * (math.sin(math.radians(self.heading()))))
-
-    def rotate_limb_right(self, x, y):
-        self.right(9)
+    def rotate_limb(self, direct, x, y):
+        if direct == 'r':
+            self.right(9)
+        elif direct == 'l':
+            self.left(9)
         self.setx(x + 30 * (math.cos(math.radians(self.heading()))))
         self.sety(y + 30 * (math.sin(math.radians(self.heading()))))
 
