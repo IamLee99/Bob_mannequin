@@ -65,46 +65,46 @@ bob_arm_l_low = Chassis.Limbs(Chassis.joint_xy(bob_arm_l_u, 60)[0],
 bob_arm_l_low.left(180)
 
 
-# Below functions use rotate_limb_left/right method from Chassis to not only rotate, but also
+# Below functions use rotate_limb method from Chassis to not only rotate, but also
 # slightly change coordinates based on point of connection ( Joint ) given
 # Upper Limb Functions
 def right_arm_up():
-    bob_arm_r_u.rotate_limb_left(15, 70)
+    bob_arm_r_u.rotate_limb('l', 15, 70)
     right_low_arm_up()
 
 
 def right_arm_down():
-    bob_arm_r_u.rotate_limb_right(15, 70)
+    bob_arm_r_u.rotate_limb('r', 15, 70)
     right_low_arm_down()
 
 
 def left_arm_up():
-    bob_arm_l_u.rotate_limb_right(-15, 70)
+    bob_arm_l_u.rotate_limb('r', -15, 70)
     left_low_arm_up()
 
 
 def left_arm_down():
-    bob_arm_l_u.rotate_limb_left(-15, 70)
+    bob_arm_l_u.rotate_limb('l', -15, 70)
     left_low_arm_down()
 
 
 def right_leg_up():
-    bob_leg_r_u.rotate_limb_left(15, -20)
+    bob_leg_r_u.rotate_limb('l', 15, -20)
     right_low_leg_up()
 
 
 def right_leg_down():
-    bob_leg_r_u.rotate_limb_right(15, -20)
+    bob_leg_r_u.rotate_limb('r', 15, -20)
     right_low_leg_down()
 
 
 def left_leg_up():
-    bob_leg_l_u.rotate_limb_right(-15, -20)
+    bob_leg_l_u.rotate_limb('r', -15, -20)
     left_low_leg_up()
 
 
 def left_leg_down():
-    bob_leg_l_u.rotate_limb_left(-15, -20)
+    bob_leg_l_u.rotate_limb('l', -15, -20)
     left_low_leg_down()
 
 
@@ -114,42 +114,42 @@ def left_leg_down():
 # Lower Limb will be able to stay in point with Lower Limb and rotate.
 # Right Low Arm
 def right_low_arm_up():
-    bob_arm_r_low.rotate_limb_left(Chassis.joint_xy(bob_arm_r_u, 30)[0],
-                                   Chassis.joint_xy(bob_arm_r_u, 30)[1])
+    bob_arm_r_low.rotate_limb('l', Chassis.joint_xy(bob_arm_r_u, 30)[0],
+                              Chassis.joint_xy(bob_arm_r_u, 30)[1])
 
 def right_low_arm_down():
-    bob_arm_r_low.rotate_limb_right(Chassis.joint_xy(bob_arm_r_u, 30)[0],
-                                    Chassis.joint_xy(bob_arm_r_u, 30)[1])
+    bob_arm_r_low.rotate_limb('r', Chassis.joint_xy(bob_arm_r_u, 30)[0],
+                              Chassis.joint_xy(bob_arm_r_u, 30)[1])
 
 
 # Left Low Arm
 def left_low_arm_up():
-    bob_arm_l_low.rotate_limb_right(Chassis.joint_xy(bob_arm_l_u, 30)[0],
-                                    Chassis.joint_xy(bob_arm_l_u, 30)[1])
+    bob_arm_l_low.rotate_limb('r', Chassis.joint_xy(bob_arm_l_u, 30)[0],
+                              Chassis.joint_xy(bob_arm_l_u, 30)[1])
 
 def left_low_arm_down():
-    bob_arm_l_low.rotate_limb_left(Chassis.joint_xy(bob_arm_l_u, 30)[0],
-                                   Chassis.joint_xy(bob_arm_l_u, 30)[1])
+    bob_arm_l_low.rotate_limb('l', Chassis.joint_xy(bob_arm_l_u, 30)[0],
+                              Chassis.joint_xy(bob_arm_l_u, 30)[1])
 
 
 # Right Low Leg
 def right_low_leg_up():
-    bob_leg_r_low.rotate_limb_left(Chassis.joint_xy(bob_leg_r_u, 30)[0],
-                                   Chassis.joint_xy(bob_leg_r_u, 30)[1])
+    bob_leg_r_low.rotate_limb('l', Chassis.joint_xy(bob_leg_r_u, 30)[0],
+                              Chassis.joint_xy(bob_leg_r_u, 30)[1])
 
 def right_low_leg_down():
-    bob_leg_r_low.rotate_limb_right(Chassis.joint_xy(bob_leg_r_u, 30)[0],
-                                    Chassis.joint_xy(bob_leg_r_u, 30)[1])
+    bob_leg_r_low.rotate_limb('r', Chassis.joint_xy(bob_leg_r_u, 30)[0],
+                              Chassis.joint_xy(bob_leg_r_u, 30)[1])
 
 
 # Left Low Leg
 def left_low_leg_up():
-    bob_leg_l_low.rotate_limb_right(Chassis.joint_xy(bob_leg_l_u, 30)[0],
-                                    Chassis.joint_xy(bob_leg_l_u, 30)[1])
+    bob_leg_l_low.rotate_limb('r', Chassis.joint_xy(bob_leg_l_u, 30)[0],
+                              Chassis.joint_xy(bob_leg_l_u, 30)[1])
 
 def left_low_leg_down():
-    bob_leg_l_low.rotate_limb_left(Chassis.joint_xy(bob_leg_l_u, 30)[0],
-                                   Chassis.joint_xy(bob_leg_l_u, 30)[1])
+    bob_leg_l_low.rotate_limb('l', Chassis.joint_xy(bob_leg_l_u, 30)[0],
+                              Chassis.joint_xy(bob_leg_l_u, 30)[1])
 
 
 # Restarting Tracer so that movement of Limbs ( turtle ) will be seen again in screen
