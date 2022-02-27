@@ -60,3 +60,20 @@ class Limbs(Chassis):
 def joint_xy(limb, dist):
     return [limb.xcor() + dist * (math.cos(math.radians(limb.heading()))),
             limb.ycor() + dist * (math.sin(math.radians(limb.heading())))]
+
+
+def move_all(bob, direct):
+    x = 0
+    y = 0
+    if direct == 'r':
+        x = 10
+    elif direct == 'l':
+        x = -10
+    elif direct == 'up':
+        y = 10
+    elif direct == 'down':
+        y = -10
+
+    for limbs in bob:
+        limbs.setx(limbs.xcor()+x)
+        limbs.sety(limbs.ycor()+y)
