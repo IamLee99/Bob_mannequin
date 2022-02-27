@@ -64,47 +64,49 @@ bob_arm_l_low = Chassis.Limbs(Chassis.joint_xy(bob_arm_l_u, 60)[0],
                               Chassis.joint_xy(bob_arm_l_u, 60)[1])
 bob_arm_l_low.left(180)
 
+bob_full = (bob_head, bob_body, bob_arm_r_u, bob_arm_r_low, bob_arm_l_u,
+            bob_arm_l_low, bob_leg_r_u, bob_leg_r_low, bob_leg_l_u, bob_leg_l_low)
 
 # Below functions use rotate_limb method from Chassis to not only rotate, but also
 # slightly change coordinates based on point of connection ( Joint ) given
 # Upper Limb Functions
 def right_arm_up():
-    bob_arm_r_u.rotate_limb('l', 15, 70)
+    bob_arm_r_u.rotate_limb('l', bob_body.xcor()+15, bob_body.ycor()+40)
     right_low_arm_up()
 
 
 def right_arm_down():
-    bob_arm_r_u.rotate_limb('r', 15, 70)
+    bob_arm_r_u.rotate_limb('r', bob_body.xcor()+15, bob_body.ycor()+40)
     right_low_arm_down()
 
 
 def left_arm_up():
-    bob_arm_l_u.rotate_limb('r', -15, 70)
+    bob_arm_l_u.rotate_limb('r', bob_body.xcor()-15, bob_body.ycor()+40)
     left_low_arm_up()
 
 
 def left_arm_down():
-    bob_arm_l_u.rotate_limb('l', -15, 70)
+    bob_arm_l_u.rotate_limb('l', bob_body.xcor()-15, bob_body.ycor()+40)
     left_low_arm_down()
 
 
 def right_leg_up():
-    bob_leg_r_u.rotate_limb('l', 15, -20)
+    bob_leg_r_u.rotate_limb('l', bob_body.xcor()+15, bob_body.ycor()-50)
     right_low_leg_up()
 
 
 def right_leg_down():
-    bob_leg_r_u.rotate_limb('r', 15, -20)
+    bob_leg_r_u.rotate_limb('r', bob_body.xcor()+15, bob_body.ycor()-50)
     right_low_leg_down()
 
 
 def left_leg_up():
-    bob_leg_l_u.rotate_limb('r', -15, -20)
+    bob_leg_l_u.rotate_limb('r', bob_body.xcor()-15, bob_body.ycor()-50)
     left_low_leg_up()
 
 
 def left_leg_down():
-    bob_leg_l_u.rotate_limb('l', -15, -20)
+    bob_leg_l_u.rotate_limb('l', bob_body.xcor()-15, bob_body.ycor()-50)
     left_low_leg_down()
 
 
@@ -152,6 +154,24 @@ def left_low_leg_down():
                               Chassis.joint_xy(bob_leg_l_u, 30)[1])
 
 
+# new code testing
+def bob_to_right():
+    if bob_body.xcor() < 180:
+        Chassis.move_all(bob_full, 'r')
+
+def bob_to_left():
+    if bob_body.xcor() > -180:
+        Chassis.move_all(bob_full, 'l')
+
+def bob_to_up():
+    if bob_body.ycor() < 150:
+        Chassis.move_all(bob_full, 'up')
+
+def bob_to_down():
+    if bob_body.ycor() > -130:
+        Chassis.move_all(bob_full, 'down')
+
+
 # Restarting Tracer so that movement of Limbs ( turtle ) will be seen again in screen
 win.tracer(1)
 # To authorize key binding to be recognized by screen
@@ -181,5 +201,9 @@ win.onkeypress(left_leg_down, 'h')
 win.onkeypress(left_low_leg_up, 'u')
 win.onkeypress(left_low_leg_down, 'j')
 
+win.onkeypress(bob_to_right, 'Right')
+win.onkeypress(bob_to_left, 'Left')
+win.onkeypress(bob_to_up, 'Up')
+win.onkeypress(bob_to_down, 'Down')
 while True:
     win.update()
