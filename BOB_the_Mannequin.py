@@ -24,9 +24,10 @@ win.tracer(0)
 
 # WARNING : BOB IS MIRRORED TO YOU // HIS LEFT IS WRITTEN AS RIGHT IN CODINGS
 # Creating BOB
-bob_head = Chassis.Chassis()
+
+# need to create class for head.
+bob_head = Chassis.Limbs(0, 90)
 bob_head.shape("circle")
-bob_head.sety(90)
 bob_head.shapesize(stretch_wid=2.1, stretch_len=2.1)
 
 # Creating Bob's torso and limbs by using Chassis.Body or Chassis.Limbs which stores basic shape, size
@@ -48,20 +49,20 @@ bob_leg_l_u.left(260)
 # lower limbs had to be generated with coordinates given by joint_xy() to accommodate slight
 # coordinate differences made by rotations
 # Lower Legs
-bob_leg_r_low = Chassis.Limbs(Chassis.joint_xy(bob_leg_r_u, 60)[0],
-                              Chassis.joint_xy(bob_leg_r_u, 60)[1])
+bob_leg_r_low = Chassis.Limbs(Chassis.joint_xy(bob_leg_r_u, 60).get('xcor'),
+                              Chassis.joint_xy(bob_leg_r_u, 60).get('ycor'))
 bob_leg_r_low.right(80)
 
-bob_leg_l_low = Chassis.Limbs(Chassis.joint_xy(bob_leg_l_u, 60)[0],
-                              Chassis.joint_xy(bob_leg_l_u, 60)[1])
+bob_leg_l_low = Chassis.Limbs(Chassis.joint_xy(bob_leg_l_u, 60).get('xcor'),
+                              Chassis.joint_xy(bob_leg_l_u, 60).get('ycor'))
 bob_leg_l_low.left(260)
 
 # Lower Arms
-bob_arm_r_low = Chassis.Limbs(Chassis.joint_xy(bob_arm_r_u, 60)[0],
-                              Chassis.joint_xy(bob_arm_r_u, 60)[1])
+bob_arm_r_low = Chassis.Limbs(Chassis.joint_xy(bob_arm_r_u, 60).get('xcor'),
+                              Chassis.joint_xy(bob_arm_r_u, 60).get('ycor'))
 
-bob_arm_l_low = Chassis.Limbs(Chassis.joint_xy(bob_arm_l_u, 60)[0],
-                              Chassis.joint_xy(bob_arm_l_u, 60)[1])
+bob_arm_l_low = Chassis.Limbs(Chassis.joint_xy(bob_arm_l_u, 60).get('xcor'),
+                              Chassis.joint_xy(bob_arm_l_u, 60).get('ycor'))
 bob_arm_l_low.left(180)
 
 bob_full = (bob_head, bob_body, bob_arm_r_u, bob_arm_r_low, bob_arm_l_u,
@@ -71,42 +72,50 @@ bob_full = (bob_head, bob_body, bob_arm_r_u, bob_arm_r_low, bob_arm_l_u,
 # slightly change coordinates based on point of connection ( Joint ) given
 # Upper Limb Functions
 def right_arm_up():
-    bob_arm_r_u.rotate_limb('l', bob_body.xcor()+15, bob_body.ycor()+40)
+    bob_arm_r_u.rotate_limb('l', bob_body.body_joint(15, 40, 'r').get('xcor'),
+                            bob_body.body_joint(15, 40, 'r').get('ycor'))
     right_low_arm_up()
 
 
 def right_arm_down():
-    bob_arm_r_u.rotate_limb('r', bob_body.xcor()+15, bob_body.ycor()+40)
+    bob_arm_r_u.rotate_limb('r', bob_body.body_joint(15, 40, 'r').get('xcor'),
+                            bob_body.body_joint(15, 40, 'r').get('ycor'))
     right_low_arm_down()
 
 
 def left_arm_up():
-    bob_arm_l_u.rotate_limb('r', bob_body.xcor()-15, bob_body.ycor()+40)
+    bob_arm_l_u.rotate_limb('r', bob_body.body_joint(-15, 40, 'l').get('xcor'),
+                            bob_body.body_joint(-15, 40, 'l').get('ycor'))
     left_low_arm_up()
 
 
 def left_arm_down():
-    bob_arm_l_u.rotate_limb('l', bob_body.xcor()-15, bob_body.ycor()+40)
+    bob_arm_l_u.rotate_limb('l', bob_body.body_joint(-15, 40, 'l').get('xcor'),
+                            bob_body.body_joint(-15, 40, 'l').get('ycor'))
     left_low_arm_down()
 
 
 def right_leg_up():
-    bob_leg_r_u.rotate_limb('l', bob_body.xcor()+15, bob_body.ycor()-50)
+    bob_leg_r_u.rotate_limb('l', bob_body.body_joint(15, -50, 'r').get('xcor'),
+                            bob_body.body_joint(15, -50, 'r').get('ycor'))
     right_low_leg_up()
 
 
 def right_leg_down():
-    bob_leg_r_u.rotate_limb('r', bob_body.xcor()+15, bob_body.ycor()-50)
+    bob_leg_r_u.rotate_limb('r', bob_body.body_joint(15, -50, 'r').get('xcor'),
+                            bob_body.body_joint(15, -50, 'r').get('ycor'))
     right_low_leg_down()
 
 
 def left_leg_up():
-    bob_leg_l_u.rotate_limb('r', bob_body.xcor()-15, bob_body.ycor()-50)
+    bob_leg_l_u.rotate_limb('r', bob_body.body_joint(-15, -50, 'l').get('xcor'),
+                            bob_body.body_joint(-15, -50, 'l').get('ycor'))
     left_low_leg_up()
 
 
 def left_leg_down():
-    bob_leg_l_u.rotate_limb('l', bob_body.xcor()-15, bob_body.ycor()-50)
+    bob_leg_l_u.rotate_limb('l', bob_body.body_joint(-15, -50, 'l').get('xcor'),
+                            bob_body.body_joint(-15, -50, 'l').get('ycor'))
     left_low_leg_down()
 
 
@@ -116,42 +125,42 @@ def left_leg_down():
 # Lower Limb will be able to stay in point with Lower Limb and rotate.
 # Right Low Arm
 def right_low_arm_up():
-    bob_arm_r_low.rotate_limb('l', Chassis.joint_xy(bob_arm_r_u, 30)[0],
-                              Chassis.joint_xy(bob_arm_r_u, 30)[1])
+    bob_arm_r_low.rotate_limb('l', Chassis.joint_xy(bob_arm_r_u, 30).get('xcor'),
+                              Chassis.joint_xy(bob_arm_r_u, 30).get('ycor'))
 
 def right_low_arm_down():
-    bob_arm_r_low.rotate_limb('r', Chassis.joint_xy(bob_arm_r_u, 30)[0],
-                              Chassis.joint_xy(bob_arm_r_u, 30)[1])
+    bob_arm_r_low.rotate_limb('r', Chassis.joint_xy(bob_arm_r_u, 30).get('xcor'),
+                              Chassis.joint_xy(bob_arm_r_u, 30).get('ycor'))
 
 
 # Left Low Arm
 def left_low_arm_up():
-    bob_arm_l_low.rotate_limb('r', Chassis.joint_xy(bob_arm_l_u, 30)[0],
-                              Chassis.joint_xy(bob_arm_l_u, 30)[1])
+    bob_arm_l_low.rotate_limb('r', Chassis.joint_xy(bob_arm_l_u, 30).get('xcor'),
+                              Chassis.joint_xy(bob_arm_l_u, 30).get('ycor'))
 
 def left_low_arm_down():
-    bob_arm_l_low.rotate_limb('l', Chassis.joint_xy(bob_arm_l_u, 30)[0],
-                              Chassis.joint_xy(bob_arm_l_u, 30)[1])
+    bob_arm_l_low.rotate_limb('l', Chassis.joint_xy(bob_arm_l_u, 30).get('xcor'),
+                              Chassis.joint_xy(bob_arm_l_u, 30).get('ycor'))
 
 
 # Right Low Leg
 def right_low_leg_up():
-    bob_leg_r_low.rotate_limb('l', Chassis.joint_xy(bob_leg_r_u, 30)[0],
-                              Chassis.joint_xy(bob_leg_r_u, 30)[1])
+    bob_leg_r_low.rotate_limb('l', Chassis.joint_xy(bob_leg_r_u, 30).get('xcor'),
+                              Chassis.joint_xy(bob_leg_r_u, 30).get('ycor'))
 
 def right_low_leg_down():
-    bob_leg_r_low.rotate_limb('r', Chassis.joint_xy(bob_leg_r_u, 30)[0],
-                              Chassis.joint_xy(bob_leg_r_u, 30)[1])
+    bob_leg_r_low.rotate_limb('r', Chassis.joint_xy(bob_leg_r_u, 30).get('xcor'),
+                              Chassis.joint_xy(bob_leg_r_u, 30).get('ycor'))
 
 
 # Left Low Leg
 def left_low_leg_up():
-    bob_leg_l_low.rotate_limb('r', Chassis.joint_xy(bob_leg_l_u, 30)[0],
-                              Chassis.joint_xy(bob_leg_l_u, 30)[1])
+    bob_leg_l_low.rotate_limb('r', Chassis.joint_xy(bob_leg_l_u, 30).get('xcor'),
+                              Chassis.joint_xy(bob_leg_l_u, 30).get('ycor'))
 
 def left_low_leg_down():
-    bob_leg_l_low.rotate_limb('l', Chassis.joint_xy(bob_leg_l_u, 30)[0],
-                              Chassis.joint_xy(bob_leg_l_u, 30)[1])
+    bob_leg_l_low.rotate_limb('l', Chassis.joint_xy(bob_leg_l_u, 30).get('xcor'),
+                              Chassis.joint_xy(bob_leg_l_u, 30).get('ycor'))
 
 
 # new code testing
@@ -171,6 +180,18 @@ def bob_to_down():
     if bob_body.ycor() > -130:
         Chassis.move_all(bob_full, 'down')
 
+# testing whole body rot
+def bob_all_rotate_right():
+    bob_body.right(9)
+# head function
+    right_arm_down(), right_low_arm_down(), left_arm_up(), left_low_arm_up(),
+    right_leg_down(), right_low_leg_down(), left_leg_up(), left_low_leg_up()
+
+def bob_all_rotate_left():
+    bob_body.left(9)
+
+    right_arm_up(), right_low_arm_up(), left_arm_down(), left_low_arm_down(),
+    right_leg_up(), right_low_leg_up(), left_leg_down(), left_low_leg_down()
 
 # Restarting Tracer so that movement of Limbs ( turtle ) will be seen again in screen
 win.tracer(1)
@@ -205,5 +226,9 @@ win.onkeypress(bob_to_right, 'Right')
 win.onkeypress(bob_to_left, 'Left')
 win.onkeypress(bob_to_up, 'Up')
 win.onkeypress(bob_to_down, 'Down')
+
+
+win.onkeypress(bob_all_rotate_right, 'x')
+win.onkeypress(bob_all_rotate_left, 'z')
 while True:
     win.update()
