@@ -28,6 +28,16 @@ class Body(Chassis):
         self.setx(x)
         self.sety(y)
 
+    def body_joint(self, x, y, direct):
+        dist = math.sqrt((x**2 + y**2))
+        if direct == 'r':
+            return {'xcor': self.xcor() + dist * (math.cos(math.atan(y / x) + math.radians(self.heading()))),
+                    'ycor': self.ycor() + dist * (math.sin(math.atan(y / x) + math.radians(self.heading())))}
+
+        elif direct == 'l':
+            return {'xcor': self.xcor() + dist * (math.cos(math.atan(y / x) + math.radians(self.heading()+180))),
+                    'ycor': self.ycor() + dist * (math.sin(math.atan(y / x) + math.radians(self.heading()+180)))}
+
 
 # Class Limbs will accommodate both Math Function and coordinates given to
 # rotate itself while keep in contact with either upper limbs or body to mimic the joint of Mannequin
@@ -58,8 +68,8 @@ class Limbs(Chassis):
 # it's calculating coordinate while accommodating distance and rotation,
 # but this time it's not changing any set of coordinates
 def joint_xy(limb, dist):
-    return [limb.xcor() + dist * (math.cos(math.radians(limb.heading()))),
-            limb.ycor() + dist * (math.sin(math.radians(limb.heading())))]
+    return {'xcor': limb.xcor() + dist * (math.cos(math.radians(limb.heading()))),
+            'ycor': limb.ycor() + dist * (math.sin(math.radians(limb.heading())))}
 
 
 def move_all(bob, direct):
