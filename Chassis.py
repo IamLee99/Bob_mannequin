@@ -53,13 +53,13 @@ class Limbs(Chassis):
 # change of coordinate is calculated by coordinates of joint (given),
 # distance from joint to center of limb (a coordinate that setx/y follows), and a coordinate of
 # center of limb given by trigonometry based on distance and headings.
-    def rotate_limb(self, direct, x, y):
+    def rotate_limb(self, direct, x, y, dist, heading):
         if direct == 'r':
             self.right(9)
         elif direct == 'l':
             self.left(9)
-        self.setx(x + 30 * (math.cos(math.radians(self.heading()))))
-        self.sety(y + 30 * (math.sin(math.radians(self.heading()))))
+        self.setx(x + dist * (math.cos(math.radians(self.heading()+heading))))
+        self.sety(y + dist * (math.sin(math.radians(self.heading()+heading))))
 
 
 # joint_xy returns coordinates of point of connection (joint) between Upper and Lower limbs via
