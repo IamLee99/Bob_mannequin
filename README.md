@@ -15,3 +15,7 @@ Controls =
     
   Left Leg
     Y, H, U, J
+    
+  Body Control 
+    Rotation : Z, X
+    Movement : Arrow keys
