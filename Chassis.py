@@ -62,6 +62,13 @@ class Limbs(Chassis):
         self.sety(y + dist * (math.sin(math.radians(self.heading()+heading))))
 
 
+class LesserLimbs(Limbs):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.shape("circle")
+        self.shapesize(stretch_wid=0.7, stretch_len=1.2)
+
+
 # joint_xy returns coordinates of point of connection (joint) between Upper and Lower limbs via
 # trigonometry because this joint is not stationary as Upper limb also rotates and
 # changes self coordinates. internal of function is similar to setx/y in rotate_limb_() because
